@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CraneLift Planner 3D v2</title><link rel="stylesheet" href="css/app.css"></head>
+<body>
+<header><b>🏗️ CraneLift Planner 3D</b><span>v2 • Load Chart AI Workflow</span></header>
+<nav>
+<button onclick="tab('dashboard')">Dashboard</button><button onclick="tab('company')">Company</button>
+<button onclick="tab('charts')">Load Charts</button><button onclick="tab('planner')">3D Lift Planner</button>
+</nav>
+<main>
+<section id="dashboard" class="tab active"><h1>Lift Planning Dashboard</h1><div class="cards">
+<div class="card"><b>Company</b><strong id="dashCompany">Not configured</strong></div>
+<div class="card"><b>Load charts</b><strong id="dashCharts">0</strong></div>
+<div class="card"><b>Projects</b><strong id="dashProjects">0</strong></div>
+</div><div class="notice">Use the manufacturer's original load chart. Automatic extraction is an assistive step and must be verified by a competent person before a lift.</div></section>
+
+<section id="company" class="tab"><h1>Company & Project</h1>
+<div class="form"><label>Company name<input id="companyName" placeholder="ABC Construction"></label>
+<label>Client / contractor<input id="client"></label><label>Project name<input id="project"></label><label>Site / location<input id="site"></label>
+<button class="primary" onclick="saveCompany()">Save Company</button></div></section>
+
+<section id="charts" class="tab"><h1>Load Chart Library</h1>
+<div class="uploadBox"><input id="chartFile" type="file" accept=".pdf,.png,.jpg,.jpeg" multiple>
+<p>Upload PDF, JPG or PNG load charts. For production, connect this screen to a server OCR/vision service.</p>
+<button class="primary" onclick="analyzeCharts()">🤖 Analyze Uploaded Chart</button></div>
+<div id="chartList"></div></section>
+
+<section id="planner" class="tab"><h1>3D Lift Planner</h1>
+<div class="planner"><div><canvas id="scene"></canvas></div><aside>
+<h3>Lift inputs</h3><label>Load (t)<input id="load" type="number" value="8" step=".1" oninput="calc()"></label>
+<label>Radius (m)<input id="radius" type="number" value="10" step=".1" oninput="calc()"></label>
+<label>Boom (m)<input id="boom" type="number" value="18" step=".1"></label>
+<label>Height (m)<input id="height" type="number" value="12" step=".1"></label>
+<label>Chart capacity (t)<input id="chartCap" type="number" value="11" step=".1" oninput="calc()"></label>
+<div class="result" id="result">Chart capacity match: enter values</div>
+<div class="notice small">This calculation is only a planning aid. Confirm the exact crane configuration, radius, boom, outriggers and manufacturer's chart before lifting.</div>
+</aside></div></section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.min.js"></script>
+<script src="js/app.js"></script></body></html>
